@@ -1,0 +1,19 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="section-card">
+    <h1 class="mb-4">Admin Dashboard</h1>
+
+    <div class="list-group">
+        <a asp-controller="Admin" asp-action="Games" class="list-group-item list-group-item-action">
+            Manage Games
+        </a>
+        <a asp-controller="Admin" asp-action="Genres" class="list-group-item list-group-item-action">
+            Manage Genres
+        </a>
+        <a asp-controller="Admin" asp-action="Comments" class="list-group-item list-group-item-action">
+            Manage Comments
+        </a>
+    </div>
+</div>

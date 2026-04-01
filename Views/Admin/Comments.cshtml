@@ -1,0 +1,50 @@
+@model List<GameCatalog.ViewModels.Comments.CommentAdminListItemViewModel>
+
+@{
+    ViewData["Title"] = "Manage Comments";
+}
+
+<div class="section-card">
+
+    <h1 class="mb-4">Manage Comments</h1>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">No comments found.</div>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Game</th>
+                    <th>User</th>
+                    <th>Comment</th>
+                    <th>Created</th>
+                    <th style="width: 140px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var comment in Model)
+                {
+                    <tr>
+                        <td>@comment.GameTitle</td>
+                        <td>@comment.Username</td>
+                        <td>@comment.Content</td>
+                        <td>@comment.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>
+                            <form asp-controller="Admin" asp-action="DeleteComment" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@comment.Id" />
+                                <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Delete this comment?');">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

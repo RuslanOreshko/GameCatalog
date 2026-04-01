@@ -1,0 +1,15 @@
+@model GameCatalog.ViewModels.Account.ProfileViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<h1 class="mb-4">Profile</h1>
+
+<div class="card">
+    <div class="card-body">
+        <p><strong>Username:</strong> @Model.Username</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Role:</strong> @Model.Role</p>
+    </div>
+</div>

@@ -1,0 +1,111 @@
+@model GameCatalog.ViewModels.Games.GameDetailsViewModel
+
+@{
+    ViewData["Title"] = "Game Details";
+}
+
+<div class="section-card">
+    <h1 class="mb-4">@Model.Title</h1>
+
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <img src="@(string.IsNullOrWhiteSpace(Model.CoverImageUrl) ? "/images/PlaceHolder.png" : Model.CoverImageUrl)"
+                alt="@Model.Title"
+                class="details-image" />
+        </div>
+
+        <div class="col-lg-8">
+            <p><strong>Genre:</strong> @Model.GenreName</p>
+            <p><strong>Developer:</strong> @Model.Developer</p>
+            <p><strong>Publisher:</strong> @Model.Publisher</p>
+            <p><strong>Release date:</strong> @Model.ReleaseDate.ToString("dd.MM.yyyy")</p>
+            <p><strong>Rating:</strong> @Model.Rating</p>
+
+            <h4 class="mt-4">Description</h4>
+            <p>@Model.Description</p>
+        </div>
+    </div>
+
+    <div class="row g-4 mt-2">
+        <div class="col-md-6">
+            <div class="requirements-box">
+                <h4>Minimum Requirements</h4>
+                <ul class="mb-0">
+                    <li><strong>OS:</strong> @Model.MinimumOS</li>
+                    <li><strong>Processor:</strong> @Model.MinimumProcessor</li>
+                    <li><strong>RAM:</strong> @Model.MinimumRAM</li>
+                    <li><strong>Graphics:</strong> @Model.MinimumGraphics</li>
+                    <li><strong>Storage:</strong> @Model.MinimumStorage</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="requirements-box">
+                <h4>Recommended Requirements</h4>
+                <ul class="mb-0">
+                    <li><strong>OS:</strong> @Model.RecommendedOS</li>
+                    <li><strong>Processor:</strong> @Model.RecommendedProcessor</li>
+                    <li><strong>RAM:</strong> @Model.RecommendedRAM</li>
+                    <li><strong>Graphics:</strong> @Model.RecommendedGraphics</li>
+                    <li><strong>Storage:</strong> @Model.RecommendedStorage</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4" />
+
+    <h3>Comments</h3>
+
+    @if (!Model.Comments.Any())
+    {
+        <div class="alert alert-info">
+            No comments yet.
+        </div>
+    }
+    else
+    {
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="comment-card">
+                <div class="comment-meta">
+                    @comment.Username • @comment.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")
+                </div>
+                <div>@comment.Content</div>
+            </div>
+        }
+    }
+
+    <hr class="my-4" />
+
+    <h3>Add Comment</h3>
+
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <form asp-controller="Games" asp-action="AddComment" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="GameId" value="@Model.Id" />
+
+            <div class="mb-3">
+                <label class="form-label">Comment</label>
+                <textarea name="Content" class="form-control" rows="4"></textarea>
+            </div>
+
+            <button type="submit" class="btn custom-btn-primary">Submit Comment</button>
+        </form>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            Only authorized users can add comments.
+            <a asp-controller="Account" asp-action="Login">Login</a>
+        </div>
+    }
+
+    <div class="mt-4">
+        <a asp-controller="Games" asp-action="Index" class="btn custom-btn-secondary">
+            Back to list
+        </a>
+    </div>
+</div>

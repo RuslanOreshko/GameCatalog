@@ -1,0 +1,53 @@
+@model List<GameCatalog.ViewModels.Games.GameListItemViewModel>
+
+@{
+    ViewData["Title"] = "Games";
+}
+
+<div class="hero-box">
+    <div class="hero-title">Discover Great Games</div>
+    <div class="hero-subtitle">
+        Browse the catalog of computer games, view system requirements, read descriptions,
+        and leave comments after logging in.
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No games found.
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var game in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="game-card h-100">
+                    <img src="@(string.IsNullOrWhiteSpace(game.CoverImageUrl) 
+                        ? "/images/PlaceHolder.png" 
+                        : game.CoverImageUrl)"
+                    alt="@game.Title" />
+
+                    <div class="game-card-body d-flex flex-column">
+                        <div class="game-title">@game.Title</div>
+                        <div class="game-meta"><strong>Genre:</strong> @game.GenreName</div>
+                        <div class="game-meta"><strong>Developer:</strong> @game.Developer</div>
+                        <div class="game-meta"><strong>Release date:</strong> @game.ReleaseDate.ToString("dd.MM.yyyy")</div>
+                        <div class="game-meta mb-3"><strong>Rating:</strong> @game.Rating</div>
+
+                        <div class="mt-auto pt-3">
+                            <a asp-controller="Games"
+                               asp-action="Details"
+                               asp-route-id="@game.Id"
+                               class="btn custom-btn-primary w-100">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

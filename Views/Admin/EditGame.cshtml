@@ -1,0 +1,83 @@
+@model GameCatalog.ViewModels.Games.EditGameViewModel
+
+@{
+    ViewData["Title"] = "Edit Game";
+}
+
+<h1 class="mb-4">Edit Game</h1>
+
+<form asp-action="EditGame" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ReleaseDate" class="form-label"></label>
+        <input asp-for="ReleaseDate" type="date" class="form-control" />
+        <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Developer" class="form-label"></label>
+        <input asp-for="Developer" class="form-control" />
+        <span asp-validation-for="Developer" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Publisher" class="form-label"></label>
+        <input asp-for="Publisher" class="form-control" />
+        <span asp-validation-for="Publisher" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CoverImageUrl" class="form-label"></label>
+        <input asp-for="CoverImageUrl" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Rating" class="form-label"></label>
+        <input asp-for="Rating" class="form-control" />
+        <span asp-validation-for="Rating" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="GenreId" class="form-label"></label>
+        <select asp-for="GenreId" asp-items="Model.Genres" class="form-select">
+            <option value="">Select genre</option>
+        </select>
+        <span asp-validation-for="GenreId" class="text-danger"></span>
+    </div>
+
+    <h4 class="mt-4">Minimum Requirements</h4>
+    <div class="mb-3"><input asp-for="MinimumOS" class="form-control" placeholder="OS" /></div>
+    <div class="mb-3"><input asp-for="MinimumProcessor" class="form-control" placeholder="Processor" /></div>
+    <div class="mb-3"><input asp-for="MinimumRAM" class="form-control" placeholder="RAM" /></div>
+    <div class="mb-3"><input asp-for="MinimumGraphics" class="form-control" placeholder="Graphics" /></div>
+    <div class="mb-3"><input asp-for="MinimumStorage" class="form-control" placeholder="Storage" /></div>
+
+    <h4 class="mt-4">Recommended Requirements</h4>
+    <div class="mb-3"><input asp-for="RecommendedOS" class="form-control" placeholder="OS" /></div>
+    <div class="mb-3"><input asp-for="RecommendedProcessor" class="form-control" placeholder="Processor" /></div>
+    <div class="mb-3"><input asp-for="RecommendedRAM" class="form-control" placeholder="RAM" /></div>
+    <div class="mb-3"><input asp-for="RecommendedGraphics" class="form-control" placeholder="Graphics" /></div>
+    <div class="mb-3"><input asp-for="RecommendedStorage" class="form-control" placeholder="Storage" /></div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Games" class="btn btn-secondary">Back</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
