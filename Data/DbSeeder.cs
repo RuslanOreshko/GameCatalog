@@ -33,7 +33,7 @@ public static class DbSeeder
                 new Game
                 {
                     Title = "Cyberpunk 2077",
-                    CoverImageUrl = "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r3o.jpg",
+                    CoverImageUrl = "wwwroot/images/Cyberpunk2077.jpg",
                     Description = "Open-world RPG set in Night City.",
                     ReleaseDate = DateTime.SpecifyKind(new DateTime(2020, 12, 10), DateTimeKind.Utc),
                     Developer = "CD Projekt Red",
